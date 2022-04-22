@@ -1,0 +1,55 @@
+dotenv: .env
+
+wallets:
+  from_key: ${PRIVATE_KEY}
+
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@3.4.0
+
+compiler:
+  solc:
+    remappings:
+      - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0"
+
+
+networks:
+  mainnet-fork:
+    uniswap-router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    uniswap-v3-quoter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+    sushiswap-router: "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F"
+    kyber-factory: "0x833e4083B7ae46CeA85695c4f7ed25CDAd8886dE"
+    kyber-router: "0x1c87257f5e8609940bc751a07bb085bb7f8cdbe6"
+    shibaswap-router: "0x03f7724180AA6b939894B5Ca4314783B0b36b329"
+    defiswap: "0x881D40237659C251811CEC9c364ef91dC08D300C"
+    synapse-address: "0x244268b9082E05a8BcF18b3b0e83999EA4Fc9fCf"
+    weth-token: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    dai-token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+    usdt-token: "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+  mainnet-fork-dev:
+    uniswap-router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    uniswap-v3-quoter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+    sushiswap-router: "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F"
+    kyber-factory: "0x833e4083B7ae46CeA85695c4f7ed25CDAd8886dE"
+    kyber-router: "0x1c87257f5e8609940bc751a07bb085bb7f8cdbe6"
+    shibaswap-router: "0x03f7724180AA6b939894B5Ca4314783B0b36b329"
+    defiswap: "0x881D40237659C251811CEC9c364ef91dC08D300C"
+    synapse-address: "0x244268b9082E05a8BcF18b3b0e83999EA4Fc9fCf"
+    weth-token: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    dai-token: "0x6b175474e89094c44da98b954eedeac495271d0f"
+    usdt-token: "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+  kovan:
+    uniswap-router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    uniswap-v3-quoter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+    sushiswap-router: "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F"
+    weth-token: "0xd0a1e359811322d97991e03f863a0c30c2cf029c"
+    dai-token: "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD"
+
+  polygone-mainnet-dev:
+    quickswap-router: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff"
+    sushiswap-router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506"
+    jetswap-router: "0x5C6EC38fb0e2609672BDf628B1fD605A523E5923"
+    kyber-factory: "0x5f1fe642060b5b9658c15721ea22e982643c095c"
+    kyber-router: "0x546C79662E028B661dFB4767664d0273184E4dD1"
+    weth-token: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+    dai-token: "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063"
+    synapse-address: "0xD2666441443DAa61492FFe0F37717578714a4521"
