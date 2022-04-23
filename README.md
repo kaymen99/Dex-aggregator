@@ -9,7 +9,8 @@
 </p>
 
 
-Dapp that enable user to compare prices a cross different exchanges and swap at the best rate 
+With the ever growing DEFI world and the appearance of multiple decentralized exchanges on the different blockchains, the WEB3 ecosystem needs a way to compare the pros & cons of swapping on each DEX. This excatly what Paraswap & 1inch protocol are trying to do, they aggregate the prices of tokens from multiple exchanges in each Blockchain (for example: uniswap, sushiswap, shibaswap in the Ethereum Mainnet), then they compare those prices and the swapping fee and offer to their user the best exchange rate possible.
+In this Dapp, i built a simplified version of Paraswap it works on 4 blockchains: Ethereum, Polygon, Binance Smart Chain and the kovan testnet.For the moment it supports some well known tokens (ETH, Matic, Dai, USDC,...).
 
 
 ### Built With
@@ -31,9 +32,6 @@ Dapp that enable user to compare prices a cross different exchanges and swap at 
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
-    </li>
-    <li>
-      <a href="#how-it-works">How it Works</a>
     </li>
     <li>
       <a href="#usage">How to Use</a>
@@ -88,18 +86,23 @@ Please install or have installed the following:
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-<!-- Working EXAMPLES -->
-## How it Works
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
 <!-- USAGE EXAMPLES -->
 ## How to Use
+   After going throught the installation part you can start the app by running:
+   ```sh
+   cd front-end
+   yarn
+   yarn start
+   ```
+   The front-end is built using the following libraries:
+      <ul>
+        <li><b>Ethers.js:</b> used as interface between the UI and the deployed smart contract</li>
+        <li><b>Web3modal:</b> for conecting to Metamask</li>
+        <li><b>@reduxjs/toolkit & redux-persist:</b> for managing the app states (account, balance, blockchain) </li>
+        <li><b>Material UI:</b> used for react components and styles </li>    
+      </ul>
 
-   
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
