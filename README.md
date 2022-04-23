@@ -10,6 +10,7 @@
 
 
 With the ever growing DEFI world and the appearance of multiple decentralized exchanges on the different blockchains, the WEB3 ecosystem needs a way to compare the pros & cons of swapping on each DEX. This excatly what Paraswap & 1inch protocol are trying to do, they aggregate the prices of tokens from multiple exchanges in each Blockchain (for example: uniswap, sushiswap, shibaswap in the Ethereum Mainnet), then they compare those prices and the swapping fee and offer to their user the best exchange rate possible.
+
 In this Dapp, i built a simplified version of Paraswap it works on 4 blockchains: Ethereum, Polygon, Binance Smart Chain and the kovan testnet.For the moment it supports some well known tokens (ETH, Matic, Dai, USDC,...).
 
 
@@ -101,7 +102,11 @@ Please install or have installed the following:
         <li><b>@reduxjs/toolkit & redux-persist:</b> for managing the app states (account, balance, blockchain) </li>
         <li><b>Material UI:</b> used for react components and styles </li>    
       </ul>
-
+   There are 2 main components:
+      <ul>
+        <li><b>Swap component:</b> It finds the best price possible for the user tokens from the supported exchanges and allow user to approve & excute the swap transaction </li>
+        <li><b>Exchanges component:</b> For getting the token prices on the different exchanges</li>  
+      </ul>   
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
