@@ -35,7 +35,7 @@ In this Dapp, i built a simplified version of Paraswap it works on 4 blockchains
       </ul>
     </li>
     <li>
-      <a href="#usage">How to Use</a>
+      <a href="#how-to-use">How to Use</a>
     </li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#license">License</a></li>
