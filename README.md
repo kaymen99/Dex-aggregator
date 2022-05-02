@@ -24,25 +24,6 @@ In this Dapp, i built a simplified version of Paraswap it works on 4 blockchains
 * [material ui](https://mui.com/getting-started/installation/)
 
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#how-to-use">How to Use</a>
-    </li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
-
-
 <!-- GETTING STARTED -->
 ## Getting Started
 
