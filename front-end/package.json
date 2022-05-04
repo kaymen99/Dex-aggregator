@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.7",
-    "@chakra-ui/react": "^1.8.8",
-    "@dynamic-amm/sdk": "^3.0.33",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@metamask/jazzicon": "^2.0.0",
