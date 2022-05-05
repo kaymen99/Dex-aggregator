@@ -45,10 +45,13 @@ Please install or have installed the following:
     pipx install eth-brownie
    ```
    Or if you can't get pipx to work, via pip (it's recommended to use pipx)
-    ```
+    ```sh
     pip install eth-brownie
     ```
-   
+   Install [ganache-cli](https://www.npmjs.com/package/ganache-cli): 
+   ```sh
+    npm install -g ganache-cli
+    ```
 2. Clone the repo:
    ```sh
    git clone https://github.com/Aymen1001/Dex-aggregator.git
