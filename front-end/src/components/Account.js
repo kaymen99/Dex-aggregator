@@ -2,42 +2,49 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { updateAccountData, disconnect } from "../features/blockchain"
 import { ethers, utils } from "ethers"
-import { Button, Box } from "@mui/material"
+import { Modal } from "react-bootstrap"
+import { Button } from "@mui/material"
 import Web3Modal from "web3modal"
-
-import networks from "../utils/networksMap.json"
-import Identicon from "./Identicon";
+import networks from "../utils/networksMap.json";
 
 
 const eth = window.ethereum
 let web3Modal = new Web3Modal()
 
 function Account() {
-
     const dispatch = useDispatch()
     const data = useSelector((state) => state.blockchain.value)
 
     const [injectedProvider, setInjectedProvider] = useState();
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     async function fetchAccountData() {
-        const connection = await web3Modal.connect()
-        const provider = new ethers.providers.Web3Provider(connection)
+        if (typeof window.ethereum !== 'undefined') {
+            const connection = await web3Modal.connect()
+            const provider = new ethers.providers.Web3Provider(connection)
 
-        setInjectedProvider(provider);
+            setInjectedProvider(provider);
 
-        const signer = provider.getSigner()
-        const chainId = await provider.getNetwork()
-        const account = await signer.getAddress()
-        const balance = await signer.getBalance()
+            const signer = provider.getSigner()
+            const chainId = await provider.getNetwork()
+            const account = await signer.getAddress()
+            const balance = await signer.getBalance()
 
-        dispatch(updateAccountData(
-            {
-                account: account,
-                balance: utils.formatUnits(balance),
-                network: networks[String(chainId.chainId)]
-            }
-        ))
+            dispatch(updateAccountData(
+                {
+                    account: account,
+                    balance: utils.formatUnits(balance),
+                    network: networks[String(chainId.chainId)]
+                }
+            ))
+        }
+        else {
+            console.log("Please install metamask")
+            window.alert("Please Install Metamask")
+        }
     }
 
     async function Disconnect() {
@@ -47,6 +54,7 @@ function Account() {
             setInjectedProvider(null)
         }
         dispatch(disconnect())
+        setShow(false)
     }
 
     useEffect(() => {
@@ -68,29 +76,35 @@ function Account() {
             {isConnected ? (
                 <>
                     <Button
+                        className='bt-linear'
                         variant="contained"
-                        color="primary"
-                        onClick={Disconnect}
+                        onClick={handleShow}
                     >
-                        <div style={{ marginRight: '10px' }} color="#fff" sx={{
-                            backgroundColor: 'primary.dark',
-                            '&:hover': {
-                                backgroundColor: 'primary.main',
-                                opacity: [0.9, 0.8, 0.7],
-                            },
-                        }} >
-                            {data.balance && parseFloat(data.balance).toFixed(4) + ""}
-                        </div>
                         {data.account &&
                             `${data.account.slice(0, 6)}...${data.account.slice(
-                                data.account.length - 4,
+                                data.account.length - 6,
                                 data.account.length
                             )}`}
-                        <Identicon account={data.account} />
                     </Button>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>User</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Account: {data.account}</p>
+                            <p>Balance: {data.balance && parseFloat(data.balance).toFixed(4)} ETH</p>
+                            <p>Network: {data.network}</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="contained" className='bt-linear' onClick={Disconnect}>
+                                Disconnect
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                 </>
             ) : (
                 <Button
+                    className='bt-linear'
                     variant="contained"
                     color="primary"
                     onClick={fetchAccountData}
@@ -102,7 +116,7 @@ function Account() {
     )
 }
 
-export default Account
+export default Account;
 
 
 
