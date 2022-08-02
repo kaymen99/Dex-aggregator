@@ -21,11 +21,11 @@ function Exchanges(props) {
             exchanges[currentNet]["Dexes"].map(async (e) => {
                 const router = new ethers.Contract(e.address, e.router.abi, provider)
 
-                const _tokenIn = tokens[currentNet]["tokensAddress"][props.token0]["address"]
-                const _tokenOut = tokens[currentNet]["tokensAddress"][props.token1]["address"]
+                const _tokenIn = tokens[currentNet][props.token0]["address"]
+                const _tokenOut = tokens[currentNet][props.token1]["address"]
                 let path = [_tokenIn, _tokenOut]
 
-                const decimals = tokens[currentNet]["tokensAddress"][props.token1]["decimals"]
+                const decimals = tokens[currentNet][props.token1]["decimals"]
 
                 let amountIn = utils.parseEther("1", "ether")
 
@@ -61,7 +61,7 @@ function Exchanges(props) {
 
     return (
 
-        <Container>
+        <>
             <Table hover>
                 <thead>
                     <tr>
@@ -84,8 +84,8 @@ function Exchanges(props) {
                     })}
                 </tbody>
             </Table>
-        </Container>
+        </>
     )
 }
 
-export default Exchanges
+export default Exchanges;
