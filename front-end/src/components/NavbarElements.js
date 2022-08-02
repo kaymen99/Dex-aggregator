@@ -8,7 +8,12 @@ export const NoteNav = styled.nav`
   display: block;
   margin: 0px auto;
   margin-bottom: 80px;
-
+  
+  @media (max-width: 32em) {
+    width: 250px;
+    height: 50px;
+    }
+  }
 `;
 
 export const NavBar = styled.nav`
