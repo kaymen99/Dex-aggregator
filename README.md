@@ -3,9 +3,8 @@
 <!-- ABOUT THE PROJECT -->
 ## Dex-aggregator
 
-
 <p align="center">
-  <img alt="Dark" src="https://user-images.githubusercontent.com/83681204/164813894-c23e969f-0fc5-4beb-bcac-09ef92f364ce.png" width="100%">
+  <img alt="Dark" src="https://user-images.githubusercontent.com/83681204/182487367-977ccc2f-2ba3-414c-9a5f-1b4b855af4a6.png" width="100%">
 </p>
 
 
