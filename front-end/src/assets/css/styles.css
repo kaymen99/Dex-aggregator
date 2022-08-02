@@ -1,0 +1,112 @@
+/* header */
+
+.header {
+    width: 100%;
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.header-container {
+    width: 80%;
+    min-height: 65vh;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-box {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#window {
+    width: 500px;
+    margin-top: 50px;
+    background-color: rgb(81, 76, 76);
+    color: #fff;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 5px black;
+}
+
+.swapbox_select {
+    width: 70%;
+    float: left;
+}
+
+.swapbox {
+    overflow: auto;
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #2f2f2f;
+    border-radius: 20px;
+    border: 1px solid #565656;
+}
+
+.token_select {
+    padding: 5px 0;
+    width: 30%;
+}
+
+.token_select:hover {
+    background-color: #464646;
+    cursor: pointer;
+}
+
+.token_row {
+    padding: 5px 10px;
+}
+
+.token_img {
+    height: 30px;
+}
+
+.token_text {
+    padding: 10px;
+}
+
+.token_row:hover {
+    background-color: #e4e4e4;
+    cursor: pointer;
+}
+
+.gas_estimate_label {
+    padding-bottom: 10px;
+}
+
+.modal-body {
+    overflow: scroll;
+}
+
+@media (max-width: 64em) {
+    .header-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #window {
+        width: 400px;
+        margin-bottom: 35px;
+    }
+}
+
+@media (max-width: 32em) {
+    .header-container {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #window {
+        width: 350px;
+        margin-bottom: 35px;
+    }
+
+    .token_img {
+        height: 25px;
+    }
+}
