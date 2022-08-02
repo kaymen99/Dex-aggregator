@@ -10,7 +10,7 @@ function NavBar() {
             <Navbar bg="dark" variant="dark" expand="lg">
                 <Container>
                     <Navbar.Brand href="/">
-                        <img src={logo} width="100px" />
+                        DeXAggregator
                     </Navbar.Brand>
                     <Account />
                 </Container>
