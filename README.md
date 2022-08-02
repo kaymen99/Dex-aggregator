@@ -3,15 +3,15 @@
 <!-- ABOUT THE PROJECT -->
 ## Dex-aggregator
 
-<p align="center">
-  <img alt="Dark" src="https://user-images.githubusercontent.com/83681204/182487367-977ccc2f-2ba3-414c-9a5f-1b4b855af4a6.png" width="100%">
-</p>
+With the ever growing DEFI world and the appearance of multiple decentralized exchanges on the different blockchains, the WEB3 ecosystem needs a way to compare the pros & cons of swapping on each DEX. 
 
-
-With the ever growing DEFI world and the appearance of multiple decentralized exchanges on the different blockchains, the WEB3 ecosystem needs a way to compare the pros & cons of swapping on each DEX. This excatly what Paraswap & 1inch protocol are trying to do, they aggregate the prices of tokens from multiple exchanges in each Blockchain (for example: uniswap, sushiswap, shibaswap in the Ethereum Mainnet), then they compare those prices and the swapping fee and offer to their user the best exchange rate possible.
+This excatly what Paraswap & 1inch protocol are trying to do, they aggregate the prices of tokens from multiple exchanges in each Blockchain (for example: uniswap, sushiswap, shibaswap in the Ethereum Mainnet), then they compare those prices and the swapping fee and offer to their user the best exchange rate possible.
 
 In this Dapp, i built a simplified version of Paraswap it works on 4 blockchains: Ethereum, Polygon, Binance Smart Chain and the kovan testnet.For the moment it supports some well known tokens (ETH, Matic, Dai, USDC,...).
 
+<p align="center">
+  <img alt="Dark" src="https://user-images.githubusercontent.com/83681204/182487367-977ccc2f-2ba3-414c-9a5f-1b4b855af4a6.png" width="100%">
+</p>
 
 ### Built With
 
