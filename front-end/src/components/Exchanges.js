@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { ethers, utils } from 'ethers';
-import { Table, Container } from "@mui/material"
+import { Table } from "@mui/material"
 import { useSelector } from "react-redux";
 import { tokens, exchanges } from "../utils/helpers";
-
-
-const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-
 
 function Exchanges(props) {
 
@@ -16,37 +12,73 @@ function Exchanges(props) {
     const currentNet = data.network !== "" ? data.network : "Ethereum Mainnet"
 
     async function getPrices() {
+        if (window.ethereum !== undefined) {
+            const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+            const items = await Promise.all(
+                exchanges[currentNet].map(async (e) => {
+                    if (e.name !== "Uniswap V3") {
+                        const router = new ethers.Contract(e.address, e.router.abi, provider)
 
-        const items = await Promise.all(
-            exchanges[currentNet]["Dexes"].map(async (e) => {
-                const router = new ethers.Contract(e.address, e.router.abi, provider)
+                        const _tokenIn = tokens[currentNet][props.token0]["address"]
+                        const _tokenOut = tokens[currentNet][props.token1]["address"]
+                        let path = [_tokenIn, _tokenOut]
 
-                const _tokenIn = tokens[currentNet][props.token0]["address"]
-                const _tokenOut = tokens[currentNet][props.token1]["address"]
-                let path = [_tokenIn, _tokenOut]
+                        const decimals = tokens[currentNet][props.token1]["decimals"]
 
-                const decimals = tokens[currentNet][props.token1]["decimals"]
+                        let amountIn = utils.parseEther("1", "ether")
 
-                let amountIn = utils.parseEther("1", "ether")
+                        try {
+                            const amount = await router.getAmountsOut(amountIn, path)
 
-                try {
-                    const amount = await router.getAmountsOut(amountIn, path)
+                            let item = {
+                                exchange: e.name,
+                                price: amount[1] / 10 ** decimals
+                            }
+                            return item
+                        } catch (err) {
+                            let item = {
+                                exchange: e.name,
+                                price: 0
+                            }
+                            return item
+                        }
+                    } else {
+                        const qouter = new ethers.Contract(e.address, e.router.abi, provider)
 
-                    let item = {
-                        exchange: e.name,
-                        price: amount[1] / 10 ** decimals
+                        const _tokenIn = tokens[currentNet][props.token0]["address"]
+                        const _tokenOut = tokens[currentNet][props.token1]["address"]
+                        let path = [_tokenIn, _tokenOut]
+
+                        const decimals = tokens[currentNet][props.token1]["decimals"]
+
+                        let amountIn = utils.parseEther("1", "ether")
+
+                        try {
+                            const amount = await qouter.callStatic.quoteExactInputSingle(
+                                _tokenIn,
+                                _tokenOut,
+                                3000,
+                                amountIn,
+                                0
+                            )
+
+                            let item = {
+                                exchange: e.name,
+                                price: amount / 10 ** decimals
+                            }
+                            return item
+                        } catch (err) {
+                            let item = {
+                                exchange: e.name,
+                                price: 0
+                            }
+                            return item
+                        }
                     }
-                    return item
-                } catch (err) {
-                    let item = {
-                        exchange: e.name,
-                        price: 0
-                    }
-                    return item
-                }
 
-            }))
-        setAmounts(items)
+                }))
+            setAmounts(items)
+        }
     }
 
     /*
@@ -56,7 +88,10 @@ function Exchanges(props) {
     */
 
     useEffect(() => {
-        getPrices()
+        if (window.ethereum != undefined && data.network !== "") {
+            getPrices()
+        }
+
     }, [props.token0, props.token1, data.network])
 
     return (
