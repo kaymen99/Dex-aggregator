@@ -5,27 +5,34 @@ wallets:
 
 dependencies:
   - OpenZeppelin/openzeppelin-contracts@3.4.0
+  - Uniswap/v3-core@1.0.0
 
 compiler:
   solc:
     remappings:
       - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.4.0"
-
+      - "@uniswap=Uniswap/v3-core@1.0.0"
 
 networks:
   mainnet-fork:
     uniswap-router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    uniswapV3-router: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+    uniswapV3-qouter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
     sushiswap-router: "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F"
     shibaswap-router: "0x03f7724180AA6b939894B5Ca4314783B0b36b329"
     weth-token: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
     dai-token: "0x6b175474e89094c44da98b954eedeac495271d0f"
   kovan:
     uniswap-router: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
+    uniswapV3-router: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+    uniswapV3-qouter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
     sushiswap-router: "0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F"
     weth-token: "0xd0a1e359811322d97991e03f863a0c30c2cf029c"
     dai-token: "0xFf795577d9AC8bD7D90Ee22b6C1703490b6512FD"
 
   polygone-mainnet-dev:
+    uniswapV3-router: "0xE592427A0AEce92De3Edee1F18E0157C05861564"
+    uniswapV3-qouter: "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
     quickswap-router: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff"
     sushiswap-router: "0x1b02dA8Cb0d097eB8D57A175b88c7D8b47997506"
     jetswap-router: "0x5C6EC38fb0e2609672BDf628B1fD605A523E5923"
