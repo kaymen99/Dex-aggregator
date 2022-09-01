@@ -100,6 +100,10 @@
         flex-direction: column;
         width: 100%;
     }
+    
+     .header-box {
+        width: 100%;
+    }
 
     #window {
         width: 350px;
