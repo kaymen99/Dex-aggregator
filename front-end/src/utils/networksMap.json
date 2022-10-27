@@ -1,8 +1,6 @@
 {
     "1": "Ethereum Mainnet",
-    "4": "rinkeby",
-    "42": "kovan",
-    "3": "ropsten",
+    "5": "Goerli",
     "1337": "ganache",
     "80001": "Polygon Testnet",
     "137": "Polygon Mainnet",
