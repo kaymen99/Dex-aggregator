@@ -1,3 +1,7 @@
+import IRouter from "./../artifacts/interfaces/IUniswapV2Router02.json";
+import ISwapRouter from "./../artifacts/interfaces/ISwapRouter.json";
+import IQouter from "./../artifacts/interfaces/IQuoter.json";
+
 import eth from "./../assets/images/etherLogo.png";
 import bnb from "./../assets/images/bnb.png";
 import matic from "./../assets/images/matic.png";
@@ -8,10 +12,6 @@ import aave from "./../assets/images/aave.png"
 import link from "./../assets/images/link.png"
 import usdt from "./../assets/images/usdt.png";
 import uni from "./../assets/images/uni.jpg"
-
-import IRouter from "./../artifacts/interfaces/IUniswapV2Router02.json";
-import ISwapRouter from "./../artifacts/interfaces/ISwapRouter.json";
-import IQouter from "./../artifacts/interfaces/IQuoter.json";
 
 export const tokens = {
     "Ethereum Mainnet": [
@@ -63,9 +63,8 @@ export const tokens = {
             "address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
             "decimals": 18
         }
-    ]
-    ,
-    "kovan": [
+    ],
+    "Goerli": [
         {
             "image": eth,
             "name": "ETH",
@@ -209,7 +208,8 @@ export const exchanges = {
         {
             "name": "Uniswap V3",
             "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
-            "router": IQouter
+            "router": ISwapRouter,
+            "quoter": IQouter
         },
         {
             "name": "Sushiswap",
@@ -222,7 +222,7 @@ export const exchanges = {
             "router": IRouter
         }
     ],
-    "kovan": [
+    "Goerli": [
         {
             "name": "Uniswap",
             "address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
@@ -231,7 +231,8 @@ export const exchanges = {
         {
             "name": "Uniswap V3",
             "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
-            "router": IQouter
+            "router": ISwapRouter,
+            "quoter": IQouter
         },
         {
             "name": "Sushiswap",
@@ -253,7 +254,8 @@ export const exchanges = {
         {
             "name": "Uniswap V3",
             "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
-            "router": IQouter
+            "router": ISwapRouter,
+            "quoter": IQouter
         },
         {
             "name": "Quickswap",
@@ -304,7 +306,7 @@ export const exchangesMap = {
         },
         1: {
             "name": "Uniswap V3",
-            "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+            "address": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
         },
         2: {
             "name": "SUSHISWAP",
@@ -315,14 +317,14 @@ export const exchangesMap = {
             "address": "0x03f7724180AA6b939894B5Ca4314783B0b36b329"
         }
     },
-    "kovan": {
+    "Goerli": {
         0: {
             "name": "UNISWAP",
             "address": "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D"
         },
         1: {
             "name": "Uniswap V3",
-            "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+            "address": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
         },
         2: {
             "name": "SUSHISWAP",
@@ -340,7 +342,7 @@ export const exchangesMap = {
         },
         1: {
             "name": "Uniswap V3",
-            "address": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
+            "address": "0xE592427A0AEce92De3Edee1F18E0157C05861564",
         },
         2: {
             "name": "QUICKSWAP",
@@ -350,7 +352,7 @@ export const exchangesMap = {
             "name": "JETSWAP",
             "address": "0x5C6EC38fb0e2609672BDf628B1fD605A523E5923"
         },
-        3: {
+        4: {
             "name": "APESWAP",
             "address": "0xC0788A3aD43d79aa53B09c2EaCc313A787d1d607"
         }
