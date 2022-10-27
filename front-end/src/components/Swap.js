@@ -8,13 +8,14 @@ import qs from 'qs'
 import "../assets/css/styles.css";
 import { tokens, exchanges, exchangesMap } from "../utils/helpers";
 import IRouter from "../artifacts/interfaces/IUniswapV2Router02.json";
+import ISwapRouter from "../artifacts/interfaces/ISwapRouter.json";
 import ERC20 from "../artifacts/interfaces/IERC20.json";
 import Exchanges from './Exchanges';
 
 function Swap() {
     const data = useSelector((state) => state.blockchain.value)
-    const [amountIn, setAmountIn] = useState(null);
-    const [amountOut, setAmountOut] = useState(null);
+    const [amountIn, setAmountIn] = useState(0);
+    const [amountOut, setAmountOut] = useState(0);
     const [tokenInBalance, setTokenInBalance] = useState(null);
     const [gasPrice, setGasPrice] = useState(null);
     const [bestExchange, setBestExchange] = useState(null);
@@ -48,13 +49,28 @@ function Swap() {
                 let amount_in = utils.parseEther(_amountIn.toString(), "ether")
                 const prices = await Promise.all(
                     exchanges[currentNet].map(async (e) => {
-                        const router = new ethers.Contract(e.address, e.router.abi, provider)
-                        try {
-                            const amount = await router.getAmountsOut(amount_in, path)
-
-                            return Number(amount[1])
-                        } catch (err) {
-                            return 0
+                        if (e.name !== "Uniswap V3") {
+                            const router = new ethers.Contract(e.address, e.router.abi, provider)
+                            try {
+                                const amount = await router.getAmountsOut(amount_in, path)
+                                return Number(amount[1])
+                            } catch (err) {
+                                return 0
+                            }
+                        } else {
+                            const quoter = new ethers.Contract(e.address, e.quoter.abi, provider)
+                            try {
+                                const amount = await quoter.callStatic.quoteExactInputSingle(
+                                    _tokenIn,
+                                    _tokenOut,
+                                    3000,
+                                    amount_in,
+                                    0
+                                )
+                                return Number(amount)
+                            } catch (err) {
+                                return 0
+                            }
                         }
                     }))
 
@@ -121,8 +137,6 @@ function Swap() {
 
                 const erc20Contract = new ethers.Contract(_tokenIn, ERC20.abi, signer);
 
-                const router = new ethers.Contract(bestExchange["address"], IRouter.abi, signer)
-
                 const amount_in = utils.parseEther(amountIn.toString(), "ether")
 
                 const approve_tx = await erc20Contract.approve(bestExchange["address"], amount_in)
@@ -131,23 +145,49 @@ function Swap() {
 
                 let timestamp = Math.floor(new Date().getTime() / 1000.0) + 15
 
-                try {
-                    const swap_tx = await router.swapExactTokensForTokens(
-                        amount_in,
-                        amountOutMin,
-                        path,
-                        data.account,
-                        timestamp
-                    );
+                let router;
+                if (bestExchange["name"] !== "Uniswap V3") {
+                    router = new ethers.Contract(bestExchange["address"], IRouter.abi, signer)
+                    try {
+                        const swap_tx = await router.swapExactTokensForTokens(
+                            amount_in,
+                            amountOutMin,
+                            path,
+                            data.account,
+                            timestamp
+                        );
+                        await swap_tx.wait()
 
-                    await swap_tx.wait()
+                        setIsSwapping(false)
+                        setAmountIn(null)
+                        setAmountIn(null)
+                    } catch (err) {
+                        setIsSwapping(false)
+                        window.alert("An error has occured")
+                    }
+                } else {
+                    router = new ethers.Contract(bestExchange["address"], ISwapRouter.abi, signer)
+                    try {
+                        const params = {
+                            tokenIn: path[0],
+                            tokenOut: path[1],
+                            fee: 3000,
+                            recipient: data.account,
+                            deadline: timestamp,
+                            amountIn: amount_in,
+                            amountOutMinimum: amountOutMin,
+                            sqrtPriceLimitX96: 0
+                        }
+                        const swap_tx = await router.exactInputSingle(params);
+                        await swap_tx.wait()
 
-                    setIsSwapping(false)
-                    setAmountIn(null)
-                    setAmountIn(null)
-                } catch (err) {
-                    setIsSwapping(false)
-                    window.alert("An error has occured")
+                        setIsSwapping(false)
+                        setAmountIn(null)
+                        setAmountIn(null)
+                    } catch (err) {
+                        setIsSwapping(false)
+                        window.alert("An error has occured")
+                    }
                 }
             } catch (err) {
                 setIsSwapping(false)
@@ -170,7 +210,6 @@ function Swap() {
             );
             const swapPriceJSON = await response.json();
             const _gasPrice = await provider.getGasPrice()
-            console.log(Number(_gasPrice))
             setGasPrice(swapPriceJSON.estimatedGas)
         }
     }
@@ -214,8 +253,9 @@ function Swap() {
                         <div id="window">
                             <h4>Swap</h4>
                             <div id="form">
-                                <div class="swapbox">
-                                    <div class="swapbox_select token_select" id="from_token_select" onClick={() => { handleShow("from") }}>
+                                <div className="swapbox">
+                                    <div className="swapbox_select token_select"
+                                        onClick={() => { handleShow("from") }}>
                                         {trade.fromToken !== "" ? (
                                             <>
                                                 <img className="token_img"
@@ -227,16 +267,17 @@ function Swap() {
                                             </>
                                         ) : "Select A Token"}
                                     </div>
-                                    <div class="swapbox_select">
-                                        <input class="number form-control"
+                                    <div className="swapbox_select">
+                                        <input className="number form-control"
                                             type="number"
                                             value={amountIn !== 0 ? amountIn : ""}
                                             placeholder='Enter Amount'
                                             onChange={(e) => { getPriceOut(e.target.value) }} />
                                     </div>
                                 </div>
-                                <div class="swapbox">
-                                    <div class="swapbox_select token_select" id="from_token_select" onClick={() => { handleShow("to") }}>
+                                <div className="swapbox">
+                                    <div className="swapbox_select token_select"
+                                        onClick={() => { handleShow("to") }}>
                                         {trade.toToken !== "" ? (
                                             <>
                                                 <img className="token_img"
@@ -248,17 +289,21 @@ function Swap() {
                                             </>
                                         ) : "Select A Token"}
                                     </div>
-                                    <div class="swapbox_select">
-                                        <input class="number form-control"
+                                    <div className="swapbox_select">
+                                        <input className="number form-control"
                                             type="number"
                                             value={amountOut !== 0 ? amountOut : ""}
                                             placeholder={'Enter Amount'}
                                             onChange={(e) => { getPriceIn(e.target.value) }} />
                                     </div>
                                 </div>
-                                <div class="gas_estimate_label">Estimated Gas: <span id="gas_estimate">{gasPrice}</span></div>
-                                <div class="gas_estimate_label">Your {tokens["Ethereum Mainnet"][trade.fromToken].name} Balance: <span id="gas_estimate">{tokenInBalance}</span></div>
-                                <button class="btn btn-primary" style={{ width: "100%" }} onClick={swap}>
+                                <div className="gas_estimate_label">
+                                    Estimated Gas: <span>{gasPrice}</span>
+                                </div>
+                                <div className="gas_estimate_label">
+                                    Your {tokens["Ethereum Mainnet"][trade.fromToken].name} Balance: <span>{tokenInBalance}</span>
+                                </div>
+                                <button className="btn btn-primary" style={{ width: "100%" }} onClick={swap}>
                                     {isSwapping ? <CircularProgress color="inherit" size={18} /> : "Swap"}
                                 </button>
                             </div>
@@ -272,8 +317,8 @@ function Swap() {
                             {tokens["Ethereum Mainnet"].map((token, index) => {
                                 return (
                                     <div className="token_row" key={index} onClick={() => { selectToken(index) }} >
-                                        <img class="token_img" src={token.image} />
-                                        <span class="token_text">{token.name}</span>
+                                        <img className="token_img" src={token.image} />
+                                        <span className="token_text">{token.name}</span>
                                     </div>
                                 )
                             })}
