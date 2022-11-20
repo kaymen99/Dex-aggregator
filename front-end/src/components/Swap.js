@@ -324,8 +324,8 @@ function Swap() {
                             })}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="contained" >
-                                Disconnect
+                            <Button variant="contained">
+                                Close
                             </Button>
                         </Modal.Footer>
                     </Modal>
