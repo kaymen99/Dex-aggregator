@@ -324,7 +324,7 @@ function Swap() {
                             })}
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="contained">
+                            <Button variant="contained" onClick={handleClose}>
                                 Close
                             </Button>
                         </Modal.Footer>
